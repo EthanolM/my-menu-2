@@ -1,0 +1,385 @@
+// 设计系统 - 颜色
+$primary-color: #5A67D8; // 主色调：低饱和度的靛蓝色
+$primary-light: #EEF1FD; // 主色浅色
+$accent-color: #FF6B6B; // 点缀色：柔和的红色
+$success-color: #10B981; // 成功色
+$warning-color: #F59E0B; // 警告色
+$error-color: #EF4444; // 错误色
+
+$background-color: #F9FAFB; // 页面背景色
+$card-color: #FFFFFF; // 卡片背景色
+$card-color-light: #F9FAFB; // 卡片浅色背景
+$border-color: #E5E7EB; // 边框颜色
+$divider-color: #F3F4F6; // 分割线颜色
+
+$text-color: #1F2937; // 主文本色
+$text-color-secondary: #4B5563; // 次要文本色
+$text-color-light: #6B7280; // 浅色文本
+$text-color-lighter: #9CA3AF; // 更浅文本色
+
+// 设计系统 - 字体
+@mixin font-family {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+}
+
+// 设计系统 - 阴影
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05); // 小阴影
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.03); // 中等阴影
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.03); // 大阴影
+
+// 设计系统 - 布局
+$container-padding: 32rpx; // 容器内边距
+$card-padding: 32rpx; // 卡片内边距
+$card-radius: 16rpx; // 卡片圆角
+$btn-radius: 12rpx; // 按钮圆角
+$input-radius: 12rpx; // 输入框圆角
+
+// 设计系统 - 间距
+$spacing-xs: 8rpx; // 超小间距
+$spacing-sm: 16rpx; // 小间距
+$spacing-md: 24rpx; // 中等间距
+$spacing-lg: 32rpx; // 大间距
+$spacing-xl: 48rpx; // 超大间距
+
+// 设计系统 - 动画
+@mixin transition-normal {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); // 标准过渡动画
+}
+
+@mixin transition-fast {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); // 快速过渡动画
+}
+
+// 文本省略 mixin
+@mixin text-ellipsis($lines: 1) {
+  @if $lines ==1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// 全局基础样式
+page {
+  @include font-family;
+  background-color: $background-color;
+  color: $text-color;
+  font-size: 28rpx;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+// 容器样式
+.container {
+  padding: $container-padding;
+}
+
+// 卡片样式
+.card {
+  background-color: $card-color;
+  border-radius: $card-radius;
+  padding: $card-padding;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+  @include transition-normal;
+
+  &:active {
+    transform: scale(0.99); // 点击缩放效果
+  }
+}
+
+// 按钮样式
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 88rpx;
+  border-radius: $btn-radius;
+  font-weight: 500;
+  font-size: 28rpx;
+  padding: 0 $spacing-lg;
+  @include transition-normal;
+
+  &:active {
+    opacity: 0.9; // 点击时降低透明度
+  }
+
+  &.primary {
+    background-color: $primary-color;
+    color: white;
+  }
+
+  &.outline {
+    background-color: transparent;
+    border: 2rpx solid $primary-color;
+    color: $primary-color;
+  }
+
+  &.text {
+    background-color: transparent;
+    color: $primary-color;
+    height: auto;
+    padding: $spacing-sm $spacing-md;
+  }
+
+  &.danger {
+    background-color: $error-color;
+    color: white;
+  }
+
+  &.success {
+    background-color: $success-color;
+    color: white;
+  }
+}
+
+// 输入框样式
+.input {
+  background-color: #F9FAFB;
+  border-radius: $input-radius;
+  padding: 24rpx;
+  height: 72rpx;
+  border: 2rpx solid transparent;
+  @include transition-fast;
+
+  &:focus {
+    border-color: $primary-color;
+    background-color: white;
+  }
+}
+
+// 文本区域
+.textarea {
+  background-color: #F9FAFB;
+  border-radius: $input-radius;
+  padding: 24rpx;
+  width: 100%;
+  min-height: 200rpx;
+  box-sizing: border-box;
+  border: 2rpx solid transparent;
+  @include transition-fast;
+
+  &:focus {
+    border-color: $primary-color;
+    background-color: white;
+  }
+}
+
+// 标签样式
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 16rpx;
+  border-radius: 100rpx;
+  font-size: 24rpx;
+  background-color: $primary-light;
+  color: $primary-color;
+  margin-right: 12rpx;
+  margin-bottom: 12rpx;
+
+  &.active {
+    background-color: $primary-color;
+    color: white;
+  }
+}
+
+// 列表样式
+.list-item {
+  padding: $spacing-lg;
+  border-bottom: 2rpx solid $divider-color;
+  display: flex;
+  align-items: center;
+  @include transition-fast;
+
+  &:active {
+    background-color: $divider-color;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// 栅格布局
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+// 间距工具类
+.mt-xs {
+  margin-top: $spacing-xs;
+}
+
+.mt-sm {
+  margin-top: $spacing-sm;
+}
+
+.mt-md {
+  margin-top: $spacing-md;
+}
+
+.mt-lg {
+  margin-top: $spacing-lg;
+}
+
+.mt-xl {
+  margin-top: $spacing-xl;
+}
+
+.mb-xs {
+  margin-bottom: $spacing-xs;
+}
+
+.mb-sm {
+  margin-bottom: $spacing-sm;
+}
+
+.mb-md {
+  margin-bottom: $spacing-md;
+}
+
+.mb-lg {
+  margin-bottom: $spacing-lg;
+}
+
+.mb-xl {
+  margin-bottom: $spacing-xl;
+}
+
+.ml-xs {
+  margin-left: $spacing-xs;
+}
+
+.ml-sm {
+  margin-left: $spacing-sm;
+}
+
+.ml-md {
+  margin-left: $spacing-md;
+}
+
+.ml-lg {
+  margin-left: $spacing-lg;
+}
+
+.ml-xl {
+  margin-left: $spacing-xl;
+}
+
+.mr-xs {
+  margin-right: $spacing-xs;
+}
+
+.mr-sm {
+  margin-right: $spacing-sm;
+}
+
+.mr-md {
+  margin-right: $spacing-md;
+}
+
+.mr-lg {
+  margin-right: $spacing-lg;
+}
+
+.mr-xl {
+  margin-right: $spacing-xl;
+}
+
+// 文本样式
+.text-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: $text-color;
+  line-height: 1.4;
+}
+
+.text-subtitle {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: $text-color;
+  line-height: 1.4;
+}
+
+.text-body {
+  font-size: 28rpx;
+  color: $text-color;
+  line-height: 1.6;
+}
+
+.text-caption {
+  font-size: 24rpx;
+  color: $text-color-light;
+  line-height: 1.4;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// 工具类混合指令
+@mixin ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 图标样式
+.icon {
+  width: 40rpx;
+  height: 40rpx;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // TODO我们需要下面的嘛？
+  // &.sm {
+  //   width: 32rpx;
+  //   height: 32rpx;
+  // }
+
+  // &.lg {
+  //   width: 48rpx;
+  //   height: 48rpx;
+  // }
+}
